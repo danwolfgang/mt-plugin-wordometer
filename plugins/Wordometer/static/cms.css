@@ -1,0 +1,27 @@
+.field-header label { display: inline; }
+
+.word-count {
+    margin-left: 10px;
+    color: #7e7e7e;
+}
+
+.error {
+    color: #990000;
+}
+
+#editor-count {
+    margin-top: 5px;
+}
+
+#body-editor-count-container,
+#extended-editor-count-container {
+    color: #7e7e7e;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#body-editor-count-container .word-count,
+#extended-editor-count-container .word-count,
+#total-editor-count.word-count {
+    margin-left: 0;
+}

@@ -1,0 +1,28 @@
+name: Wordometer
+id: Wordometer
+key: Wordometer
+description: 'Within MT&#0146;s admin interface, Wordometer unobtrusively tracks the number of words in each entry field (Body, Extended, Excerpt, Keywords) and the number of tags used, as well as in text and textarea custom fields.'
+version: 2.0.1
+author_name: 'Dan Wolfgang, uiNNOVATIONS'
+author_link: http://uinnovations.com
+plugin_link: http://www.eatdrinksleepmovabletype.com/plugins/wordometer/
+doc_link: http://www.eatdrinksleepmovabletype.com/plugins/wordometer/documentation.php
+static_version: 1
+
+blog_config_template: config.mtml
+
+settings:
+    body_min_count:
+        default: 0
+        scope: blog
+    body_max_count:
+        scope: blog
+    extended_min_count:
+        default: 0
+        scope: blog
+    extended_max_count:
+        scope: blog
+
+callbacks:
+    MT::App::CMS::template_source.edit_entry: $Wordometer::Wordometer::Plugin::update_template
+

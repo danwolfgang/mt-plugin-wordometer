@@ -1,0 +1,24 @@
+<mtapp:setting
+    id="body-count-indicator"
+    label="Body Count Indicator"
+    hint="The Body field counter can be used to indicate whether a minimum or maximum word count has been reached. The word count field will be colored when the minimum number of words is not met, and when the maximum number of words is exceeded. The minimum word count field can be set to zero (0) to <em>not</em> trigger the color indicator. The maximum word count field can be left blank to <em>not</em> trigger the color indicator."
+    show_hint="1">
+    <p>
+        <span>Minimum word count: 
+        <input type="text" name="body_min_count" id="body_min_count" value="<mt:Var name="body_min_count" escape="html">" style="width: 40px; text-align: center;" /></span>
+        <span style="margin-left: 30px;">Maximum word count: 
+        <input type="text" name="body_max_count" id="body_max_count" value="<mt:Var name="body_max_count" escape="html">" style="width: 40px; text-align: center;" /></span>
+    </p>
+</mtapp:setting>
+<mtapp:setting
+    id="extended-count-indicator"
+    label="Extended Count Indicator"
+    hint="The Extended field counter can be used to indicate whether a minimum or maximum word count has been reached, just as the Body indicator does."
+    show_hint="1">
+    <p>
+        <span>Minimum word count: 
+        <input type="text" name="extended_min_count" id="extended_min_count" value="<mt:Var name="extended_min_count" escape="html">" style="width: 40px; text-align: center;" /></span>
+    <span style="margin-left: 30px;">Maximum word count: 
+        <input type="text" name="extended_max_count" id="extended_max_count" value="<mt:Var name="extended_max_count" escape="html">" style="width: 40px; text-align: center;" /></span>
+    </p>
+</mtapp:setting>
