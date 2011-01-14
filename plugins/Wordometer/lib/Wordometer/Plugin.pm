@@ -11,8 +11,8 @@ sub update_template {
     my $new = <<'END';
     <script type="text/javascript" src="<$mt:var name="static_uri"$>js/tc/client.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="<mt:WordometerStaticWebPath>cms.js"></script>
-    <link rel="stylesheet" href="<mt:WordometerStaticWebPath>cms.css" type="text/css" />
+    <script type="text/javascript" src="<mt:PluginStaticWebPath component="Wordometer">cms.js"></script>
+    <link rel="stylesheet" href="<mt:PluginStaticWebPath component="Wordometer">cms.css" type="text/css" />
 END
 
     # Add the counter min/max indicators
