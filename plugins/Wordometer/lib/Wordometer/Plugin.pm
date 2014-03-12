@@ -12,7 +12,32 @@ sub update_template {
     <script type="text/javascript" src="<$mt:var name="static_uri"$>js/tc/client.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="<mt:PluginStaticWebPath component="Wordometer">cms.js"></script>
-    <link rel="stylesheet" href="<mt:PluginStaticWebPath component="Wordometer">cms.css" type="text/css" />
+    <style type="text/css">
+        .field-header label { display: inline; }
+
+        .word-count {
+            margin-left: 10px;
+            color: #a3a3a2;
+        }
+
+        .error { color: #990000; }
+
+        #editor-count { margin-top: 5px; }
+
+        #body-editor-count-container,
+        #extended-editor-count-container {
+            color: #a3a3a2;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #title-word-count,
+        #body-editor-count-container .word-count,
+        #extended-editor-count-container .word-count,
+        #total-editor-count.word-count { margin-left: 0; }
+
+        #title-field { margin-bottom: 10px; }
+    </style>
 END
 
     # Add the counter min/max indicators
