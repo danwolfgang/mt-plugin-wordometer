@@ -46,11 +46,11 @@ END
 
     my $body_count;
     $body_count = $config->{'body_min_count'} || '0';
-    $body_count = $body_count . ',' . $config->{'body_max_count'};
+    $body_count = $body_count . ',' . ($config->{'body_max_count'} || '');
 
     my $extended_count;
     $extended_count = $config->{'extended_min_count'} || '0';
-    $extended_count = $extended_count . ',' . $config->{'extended_max_count'};
+    $extended_count = $extended_count . ',' . ($config->{'extended_max_count'} || '');
 
     my $counter_vars .= <<END;
 <script type="text/javascript">
