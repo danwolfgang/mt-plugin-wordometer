@@ -22,6 +22,8 @@ between 75 and 125 words as sort of a "goal" area.
 * Movable Type 5.x or 6.x
 * Optional: Config Assistant 2.5+ (See installation notes below)
 
+* Movable Type 4.x is supported with [Wordometer version 2.0.3](https://github.com/danwolfgang/mt-plugin-wordometer/releases)
+
 
 # Installation
 
