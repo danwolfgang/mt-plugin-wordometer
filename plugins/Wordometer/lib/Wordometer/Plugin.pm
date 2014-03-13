@@ -9,9 +9,8 @@ sub update_template {
     my $old = q{<script type="text/javascript" src="<$mt:var name="static_uri"$>js/tc/client.js"></script>};
     $old = quotemeta($old);
     my $new = <<'END';
-    <script type="text/javascript" src="<$mt:var name="static_uri"$>js/tc/client.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="<mt:PluginStaticWebPath component="Wordometer">cms.js"></script>
+    <script type="text/javascript" src="<mt:Var name="static_uri">js/tc/client.js"></script>
+    <script type="text/javascript" src="<mt:Var name="static_uri">support/plugins/wordometer/cms.js"></script>
     <style type="text/css">
         .field-header label { display: inline; }
 
