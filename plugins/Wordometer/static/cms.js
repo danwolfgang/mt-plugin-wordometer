@@ -28,45 +28,56 @@ jQuery(document).ready(function($) {
     // The Body and Extended editors (in particular the rich text editor) needs
     // some special handling. Update the fields every second.
     setInterval(function(){
-        var data = '';
+        var field_label = jQuery('.selected-tab a').text();
+        var field = '';
+        var data  = '';
+
         // The rich text editor stores it's text in an iframe.
         if ( $('select#convert_breaks').val() == 'richtext' ) {
-            data = $('iframe#editor-input-content_ifr').contents().text();
+            // Is this the body field?
+            if (field_label == 'Body') {
+                field = $('iframe#editor-input-content_ifr');
+            }
+            // It must be the Extended field.
+            else {
+                field = $('iframe#editor-input-extended_ifr');
+            }
+            data = field.contents().text();
         }
+        // Not the rich text editor.
         else {
-            data = $('textarea#editor-input-content').val();
+            // Is this the body field?
+            if (field_label == 'Body') {
+                field = $('textarea#editor-input-content');
+            }
+            // It must be the Extended field.
+            else {
+                field = $('textarea#editor-input-extended');
+            }
+            data = field.val();
         }
-        bodyAndExtendedFields(data);
+        wordCount(field, data);
     },1000);
 });
-
-function bodyAndExtendedFields(data) {
-    // Look at the editor tabs to decide if they're in the Body or Extended
-    // field.
-    var field = jQuery('.selected-tab a').text();
-    if (field == 'Body') {
-        wordCount('#editor-input-content', data);
-    }
-    // It must be the Extended field.
-    else {
-        wordCount('#editor-input-extended', data);
-    }
-}
 
 function wordCount(field, data) {
     // Because "this" is passed here, we need to find out what the id of
     // the element is that we're working with first, before anything else.
     var id = '#' + jQuery(field).attr('id');
-    var elClass = jQuery(id).attr('class');
+
+    // Find the minimum and maximum word desired word count, if specified.
     var minWords = 0;
     var maxWords = 0;
-    var countControl = elClass.substring((elClass.indexOf('['))+1, elClass.lastIndexOf(']')).split(',');
+    var elClass = jQuery(id).attr('class');
+    if (elClass) {
+        var countControl = elClass.substring((elClass.indexOf('['))+1, elClass.lastIndexOf(']')).split(',');
 
-    if(countControl.length > 1) {
-        minWords = countControl[0];
-        maxWords = countControl[1];
-    } else {
-        maxWords = countControl[0];
+        if(countControl.length > 1) {
+            minWords = countControl[0];
+            maxWords = countControl[1];
+        } else {
+            maxWords = countControl[0];
+        }
     }
 
     var separator = ' ';
@@ -79,10 +90,10 @@ function wordCount(field, data) {
 
     // The Body and Extended fields get handled specially because their counter
     // placement is in a weird spot.
-    if (id == '#editor-input-content') {
+    if (id == '#editor-input-content' || id == '#editor-input-content_ifr') {
         var word_count_id = '#body-editor-count';
     }
-    else if (id == '#editor-input-extended') {
+    else if (id == '#editor-input-extended' || id == '#editor-input-extended_ifr') {
         var word_count_id = '#extended-editor-count';
     }
     // Add the count HTML for all other fields.
@@ -150,7 +161,8 @@ function wordCount(field, data) {
 
     // If the Body or Extended fields are being updated, also update the
     // total word count.
-    if (id == '#editor-input-content' || id == '#editor-input-extended') {
+    if (id == '#editor-input-content' || id == '#editor-input-content_ifr'
+        || id == '#editor-input-extended' || id == '#editor-input-extended_ifr') {
         var num1 = parseFloat(jQuery('#body-editor-count').children('strong').text());
         var num2 = parseFloat(jQuery('#extended-editor-count').children('strong').text());
         var total_count =  num1 + num2;
