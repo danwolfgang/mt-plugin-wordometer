@@ -2,12 +2,12 @@ name: Wordometer
 id: Wordometer
 key: Wordometer
 description: 'Within MT&#0146;s admin interface, Wordometer unobtrusively tracks the number of words in each entry field (Body, Extended, Excerpt, Keywords) and the number of tags used, as well as in text and textarea custom fields.'
-version: 2.1.0
+version: 2.1.1
 author_name: 'Dan Wolfgang, uiNNOVATIONS'
 author_link: http://uinnovations.com
 plugin_link: http://www.eatdrinksleepmovabletype.com/plugins/wordometer/
 doc_link: http://www.eatdrinksleepmovabletype.com/plugins/wordometer/documentation.php
-static_version: 2
+static_version: 3
 
 blog_config_template: config.mtml
 
