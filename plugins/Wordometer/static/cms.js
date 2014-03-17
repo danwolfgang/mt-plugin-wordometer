@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
             data = $('iframe#editor-input-content_ifr').contents().text();
         }
         else {
-            data = $('#editor-content-textarea').text();
+            data = $('textarea#editor-input-content').val();
         }
         bodyAndExtendedFields(data);
     },1000);
