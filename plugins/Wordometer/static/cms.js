@@ -134,7 +134,7 @@ function wordCount(field, data) {
     }
 
     // First, ensure that the field isn't empty.
-    if (content == '') {
+    if (content == '' || content == undefined) {
         var numWords = '0';
     }
     else {
