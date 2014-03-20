@@ -10,8 +10,9 @@ jQuery(document).ready(function($) {
         + '<span id="total-editor-count" class="word-count">Total: <strong>0</strong> words</span></div>'
     );
 
-    $('#editor-input-content').addClass('count['+body_count+']');
-    $('#editor-input-extended').addClass('count['+extended_count+']');
+    // Store the min/max word count preferences.
+    $('#body-editor-count').data({ min: body_min_count, max: body_max_count });
+    $('#extended-editor-count').data({ min: extended_min_count, max: extended_max_count });
 
     // Identify all of the fields to count.
     var fields = '#main-content textarea, #main-content input[type="text"], #editor-input-content, #editor-input-extended';
@@ -42,7 +43,8 @@ jQuery(document).ready(function($) {
             else {
                 field = $('iframe#editor-input-extended_ifr');
             }
-            data = field.contents().text();
+            // data = field.contents().text();
+            data = field.contents().find('body').html()
         }
         // Not the rich text editor.
         else {
@@ -65,21 +67,6 @@ function wordCount(field, data) {
     // the element is that we're working with first, before anything else.
     var id = '#' + jQuery(field).attr('id');
 
-    // Find the minimum and maximum word desired word count, if specified.
-    var minWords = 0;
-    var maxWords = 0;
-    var elClass = jQuery(id).attr('class');
-    if (elClass) {
-        var countControl = elClass.substring((elClass.indexOf('['))+1, elClass.lastIndexOf(']')).split(',');
-
-        if(countControl.length > 1) {
-            minWords = countControl[0];
-            maxWords = countControl[1];
-        } else {
-            maxWords = countControl[0];
-        }
-    }
-
     var separator = ' ';
     var name = 'words';
 
@@ -92,9 +79,13 @@ function wordCount(field, data) {
     // placement is in a weird spot.
     if (id == '#editor-input-content' || id == '#editor-input-content_ifr') {
         var word_count_id = '#body-editor-count';
+        var min_words = jQuery(word_count_id).data().min;
+        var max_words = jQuery(word_count_id).data().max;
     }
     else if (id == '#editor-input-extended' || id == '#editor-input-extended_ifr') {
         var word_count_id = '#extended-editor-count';
+        var min_words = jQuery(word_count_id).data().min;
+        var max_words = jQuery(word_count_id).data().max;
     }
     // Add the count HTML for all other fields.
     else {
@@ -119,7 +110,7 @@ function wordCount(field, data) {
         }
     }
 
-    if(minWords > 0) {
+    if(min_words > 0) {
         jQuery(word_count_id).addClass('error');
     }
 
@@ -134,10 +125,8 @@ function wordCount(field, data) {
     }
 
     // First, ensure that the field isn't empty.
-    if (content == '' || content == undefined) {
-        var numWords = '0';
-    }
-    else {
+    var numWords = '0';
+    if (content != '' || content != undefined) {
         // Strip HTML
         content = content.replace(/<\/?[^>]+>/gi, ' ');
         // Change any line breaks to a space.
@@ -147,13 +136,17 @@ function wordCount(field, data) {
         // Remove any leading or trailing white space.
         content = jQuery.trim(content);
         // Finally, count the number of words.
-        var numWords = content.split(separator).length;
+        if (content != '') {
+            var numWords = content.split(separator).length;
+        }
     }
 
     // Print the count.
     jQuery(word_count_id).children('strong').text(numWords);
 
-    if(numWords < minWords || (numWords > maxWords && maxWords != 0)) {
+    // Add the "error" color if the minimum word count is not met or the max
+    // word count is exceeded.
+    if(numWords < min_words || (numWords > max_words && max_words != 0)) {
         jQuery(word_count_id).addClass('error');
     } else {
         jQuery(word_count_id).removeClass('error');

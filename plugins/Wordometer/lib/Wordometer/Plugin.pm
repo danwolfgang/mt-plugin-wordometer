@@ -1,6 +1,7 @@
 package Wordometer::Plugin;
 
 use strict;
+use warnings;
 
 sub update_template {
     my ($cb, $app, $template) = @_;
@@ -43,25 +44,24 @@ END
     my $plugin = MT->component('Wordometer');
     my $config = $plugin->get_config_hash('blog:' . $app->param('blog_id') );
 
-    my $body_count;
-    $body_count = $config->{'body_min_count'} || '0';
-    $body_count = $body_count . ',' . ($config->{'body_max_count'} || '');
+    my $body_min_count = $config->{'body_min_count'} || '0';
+    my $body_max_count = $config->{'body_max_count'} || '';
 
-    my $extended_count;
-    $extended_count = $config->{'extended_min_count'} || '0';
-    $extended_count = $extended_count . ',' . ($config->{'extended_max_count'} || '');
+    my $extended_min_count = $config->{'extended_min_count'} || '0';
+    my $extended_max_count = $config->{'extended_max_count'} || '';
 
     my $counter_vars .= <<END;
 <script type="text/javascript">
-    var body_count = '$body_count';
-    var extended_count = '$extended_count';
+    var body_min_count = '$body_min_count';
+    var body_max_count = '$body_max_count';
+    var extended_min_count = '$extended_min_count';
+    var extended_max_count = '$extended_max_count';
 </script>
 END
 
     $new = $counter_vars . $new;
 
     $$template =~ s/$old/$new/;
-
 }
 
 1;
