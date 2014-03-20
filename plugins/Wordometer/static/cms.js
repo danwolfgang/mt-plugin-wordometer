@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
     // The Body and Extended editors (in particular the rich text editor) needs
     // some special handling. Update the fields every second.
     setInterval(function(){
-        var field_label = jQuery('.selected-tab a').text();
+        var field_label = jQuery('.selected-tab a').html();
         var field = '';
         var data  = '';
 
@@ -163,8 +163,8 @@ function wordCount(field, data) {
     // total word count.
     if (id == '#editor-input-content' || id == '#editor-input-content_ifr'
         || id == '#editor-input-extended' || id == '#editor-input-extended_ifr') {
-        var num1 = parseFloat(jQuery('#body-editor-count').children('strong').text());
-        var num2 = parseFloat(jQuery('#extended-editor-count').children('strong').text());
+        var num1 = parseFloat(jQuery('#body-editor-count').children('strong').html());
+        var num2 = parseFloat(jQuery('#extended-editor-count').children('strong').html());
         var total_count =  num1 + num2;
         jQuery('#total-editor-count').children('strong').text(total_count);
     }
