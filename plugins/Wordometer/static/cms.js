@@ -137,7 +137,10 @@ function wordCount(field, data) {
         content = jQuery.trim(content);
         // Finally, count the number of words.
         if (content != '') {
-            var numWords = content.split(separator).length;
+            numWords = jQuery.grep(
+                    content.split(separator),
+                    function(n){ return(n) }
+                ).length;
         }
     }
 
